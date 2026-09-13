@@ -1,0 +1,11 @@
+{
+    "require": {
+        "twig/twig": "^3.28",
+        "symfony/form": "^8.1",
+        "symfony/validator": "^8.1",
+        "doctrine/orm": "^3.7"
+    },
+    "require-dev": {
+        "symfony/maker-bundle": "^1.68"
+    }
+}
