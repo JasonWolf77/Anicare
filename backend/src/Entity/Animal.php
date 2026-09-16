@@ -23,6 +23,12 @@ class Animal
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
+    #[ORM\ManyToOne]
+    private ?Species $species = null;
+
+    #[ORM\ManyToOne]
+    private ?Race $race = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +66,30 @@ class Animal
     public function setNom(?string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getSpecies(): ?Species
+    {
+        return $this->species;
+    }
+
+    public function setSpecies(?Species $species): static
+    {
+        $this->species = $species;
+
+        return $this;
+    }
+
+    public function getRace(): ?Race
+    {
+        return $this->race;
+    }
+
+    public function setRace(?Race $race): static
+    {
+        $this->race = $race;
 
         return $this;
     }

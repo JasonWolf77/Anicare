@@ -14,7 +14,7 @@ class EasyAdminController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return parent::index();
+        return $this->render('admin/dashboard.html.twig');
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -35,12 +35,15 @@ class EasyAdminController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Backend');
+            ->setTitle('Anicare');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkTo(AnimalCrudController::class, 'Animal', 'fas fa-cat');
+        yield MenuItem::linkTo(SpeciesCrudController::class, 'Species', 'fas fa-dog');
+        yield MenuItem::linkTo(RaceCrudController::class, 'Race', 'fas fa-horse-head');
         // yield MenuItem::linkTo(SomeCrudController::class, 'The Label', 'fas fa-list');
     }
 }
