@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RaceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
@@ -16,8 +18,20 @@ class Race
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne]
-    private ?Species $species = null;
+    #[ORM\ManyToOne(inversedBy: 'races')]
+    private ?Species $specie = null;
+
+    /**
+     * @var Collection<int, Animal>
+     */
+    #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'races')]
+    private Collection $animals;
+
+    public function __construct(String $name="")
+    {
+        $this->name = $name;
+        $this->animals = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -36,14 +50,44 @@ class Race
         return $this;
     }
 
-    public function getSpecies(): ?Species
+    public function getSpecie(): ?Species
     {
-        return $this->species;
+        return $this->specie;
     }
 
-    public function setSpecies(?Species $species): static
+    public function setSpecie(?Species $specie): static
     {
-        $this->species = $species;
+        $this->specie = $specie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Animal>
+     */
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function addAnimal(Animal $animal): static
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals->add($animal);
+            $animal->setRace($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animal $animal): static
+    {
+        if ($this->animals->removeElement($animal)) {
+            // set the owning side to null (unless already changed)
+            if ($animal->getRace() === $this) {
+                $animal->setRace(null);
+            }
+        }
 
         return $this;
     }

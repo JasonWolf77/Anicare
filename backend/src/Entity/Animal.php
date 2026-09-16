@@ -23,11 +23,19 @@ class Animal
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom = null;
 
-    #[ORM\ManyToOne]
-    private ?Species $species = null;
-
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'animals')]
     private ?Race $race = null;
+
+    #[ORM\ManyToOne(inversedBy: 'animals')]
+    private ?Species $specie = null;
+
+    public function __construct(String $nom="", bool $sexe=true, \DateTime $date=null)
+    {
+        $this->nom=$nom;
+        $this->sexe=$sexe;
+        $this->naissance=$date;
+    }
+
 
     public function getId(): ?int
     {
@@ -70,18 +78,6 @@ class Animal
         return $this;
     }
 
-    public function getSpecies(): ?Species
-    {
-        return $this->species;
-    }
-
-    public function setSpecies(?Species $species): static
-    {
-        $this->species = $species;
-
-        return $this;
-    }
-
     public function getRace(): ?Race
     {
         return $this->race;
@@ -90,6 +86,18 @@ class Animal
     public function setRace(?Race $race): static
     {
         $this->race = $race;
+
+        return $this;
+    }
+
+    public function getSpecie(): ?Species
+    {
+        return $this->specie;
+    }
+
+    public function setSpecie(?Species $specie): static
+    {
+        $this->specie = $specie;
 
         return $this;
     }
