@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AnimalRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Domain\ValueObject\Identification;
 
 #[ORM\Entity(repositoryClass: AnimalRepository::class)]
 class Animal
@@ -28,6 +29,29 @@ class Animal
 
     #[ORM\ManyToOne(inversedBy: 'animals')]
     private ?Species $specie = null;
+
+    #[ORM\Column(length: 30, unique: true)]
+    private string $identificationData;
+
+    private ?Identification $identification = null;
+
+    public function getIdentification(): ?Identification
+    {
+        if ($this->identification === null && $this->identificationData !== '') {
+            [$type, $numero] = explode(':', $this->identificationData, 2);
+            $this->identification = $type === Identification::TYPE_TRANSPONDEUR
+                ? Identification::fromTranspondeur($numero)
+                : Identification::fromTatouage($numero);
+        }
+        return $this->identification;
+    }
+
+    public function setIdentification(Identification $identification): self
+    {
+        $this->identification = $identification;
+        $this->identificationData = $identification->getType() . ':' . $identification->getNumero();
+        return $this;
+    }
 
     public function __construct(String $nom="", bool $sexe=true, \DateTime $date=null)
     {
