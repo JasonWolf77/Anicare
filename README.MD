@@ -33,7 +33,7 @@ Anicare est une solution SaaS de gestion intégrée (ERP/CRM) conçue sur mesure
 | Base de données| MariaDB              |
   
 ## 4. 🔒 Sécurité & Conformité
- * ***Conformité RGESN & RGAA*** : le site sera conforme au RGESN et au RGAA.
+ * ***Conformité RGPD, RGESN & RGAA*** : le site sera conforme au RGESN et au RGAA.
 
 ## 5. 😯 User stories
 1. Un vétérinaire doit pouvoir consulter le dossier médical d'un animal pour assurer un suivi.
@@ -45,6 +45,91 @@ Anicare est une solution SaaS de gestion intégrée (ERP/CRM) conçue sur mesure
 7. Un vétérinaire et l'assistant(e) doit pouvoir exporter les données comptables.
 8. Un vétérinaire et l'assistant(e) doit pouvoir envoyer des rappels automatiques.
 9. Un vétérinaire et l'assistant(e) doit pouvoir gérer les stocks de médicament.
+
+## 5. Diagramme de classe
+```mermaid
+---
+config:
+  theme: neo
+---
+classDiagram
+direction TB
+    class Race {
+	    name : String
+	    specie : Species
+	    animals : Collection
+	    getName() : String
+	    setName(String)
+	    getSpecie() : Specie
+	    setSpecie(Specie)
+	    addAnimal(Animal)
+	    removeAnimal(Animal)
+    }
+
+    class Species {
+	    name : String
+	    races : Collection
+	    animals : Collection
+	    getName() : String
+	    setName(String)
+	    getRaces() : Collection
+	    addRace(Race)
+	    removeRace(Race)
+	    getAnimals() : Collection
+	    addAnimal(Animal)
+	    removeAnimal(Animal)
+    }
+
+    class Animal {
+	    identification : Value Object
+	    nom : String
+	    naissance : DateTime
+	    mort : DateTime
+	    sexe : bool
+	    race : Race
+	    species : Species
+	    owner : Owner
+	    getIdentification() : Value Object
+	    getIdentificationString() : String
+	    getNom() : String
+	    setNom(String)
+	    getNaissance() : DateTime
+	    setNaissance(DateTime)
+	    getMort() : DateTime
+	    setMort(DateTime)
+	    isSexe() : bool
+	    setSexe(bool)
+	    getRace() : Race
+	    setRace(Race)
+	    getSpecie() : Species
+	    setSpecie(Species)
+	    getOwner() : Owner
+	    setOwner(Owner)
+    }
+
+    class Owner {
+	    nom : String
+	    prenom : String
+	    email : Value Object
+	    telephone : Value Object
+	    animals : Collection
+	    getteurs()
+	    setteurs()
+    }
+
+    Animal "n" --o "1" Race
+    Animal "n" --o "1" Species
+    Species "1" -- "n" Race
+    Animal "n" --o "1" Owner
+
+
+```
+
+
+
+
+
+
 
 
 
