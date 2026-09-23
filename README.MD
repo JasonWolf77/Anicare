@@ -34,3 +34,31 @@ Anicare est une solution SaaS de gestion intégrée (ERP/CRM) conçue sur mesure
   
 ## 4. 🔒 Sécurité & Conformité
  * ***Conformité RGESN & RGAA*** : le site sera conforme au RGESN et au RGAA.
+
+## 5. 😯 User stories
+1. Un vétérinaire doit pouvoir consulter le dossier médical d'un animal pour assurer un suivi.
+2. Un vétérinaire doit pouvoir créer une ordonnance, l'enregistrer et l'imprimer.
+3. L'assistant(e) du vétérinaire doit pouvoir gérer l'agenda du vétérinaire.
+4. L'assistant(e) du vétérinaire doit pouvoir éditer une facture.
+5. Un propriétaire peut prendre un rendez-vous en ligne depuis son espace.
+6. Un propriétaire peut prendre consulter le dossier médical de son animal.
+7. Un vétérinaire et l'assistant(e) doit pouvoir exporter les données comptables.
+8. Un vétérinaire et l'assistant(e) doit pouvoir envoyer des rappels automatiques.
+9. Un vétérinaire et l'assistant(e) doit pouvoir gérer les stocks de médicament.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
